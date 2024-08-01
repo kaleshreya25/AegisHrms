@@ -30,7 +30,8 @@ jobs:
       run: |
         $chrome_installer = "C:\chrome_installer.exe"
         Invoke-WebRequest -Uri "https://dl.google.com/chrome/install/standalonesetup64.exe" -OutFile $chrome_installer
-        Start-Process -FilePath $chrome_installer -ArgumentList "/silent /install" -WaitRemove-Item -Force $chrome_installer
+        Start-Process -FilePath $chrome_installer -ArgumentList "/silent /install" -Wait
+        Remove-Item -Force $chrome_installer
     
     - name: Build with Maven
       run: mvn -B package --file pom.xml
