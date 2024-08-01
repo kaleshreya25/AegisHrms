@@ -32,17 +32,7 @@ jobs:
         Invoke-WebRequest -Uri "https://dl.google.com/chrome/install/standalonesetup64.exe" -OutFile $chrome_installer
         Start-Process -FilePath $chrome_installer -ArgumentList "/silent /install" -Wait
         Remove-Item -Force $chrome_installer
-
-    - name: Install ChromeDriver
-      run: |
-        $latest_version = (Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/LATEST_RELEASE").Content.Trim()
-        Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/$latest_version/chromedriver_win32.zip" -OutFile "chromedriver.zip"
-        Expand-Archive chromedriver.zip -DestinationPath .
-        Move-Item chromedriver.exe $Env:ProgramFiles\Google\Chrome\Application\ -Force
- 
-    - name: Add ChromeDriver to PATH
-      run: echo "::add-path::$Env:ProgramFiles\Google\Chrome\Application"    
-    
+        
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
