@@ -19,17 +19,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up JDK 17
+    - name: Set up JDK 8
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '8'
         distribution: 'temurin'
         cache: maven
         
-    - name: Set up Chrome
-      uses: browser-actions/setup-chrome@v2
-      with:
-        chrome-version: 'latest'
+    - name: Install Chrome browser
+      run: choco install googlechrome --version=latest
         
     - name: Build with Maven
       run: mvn -B package --file pom.xml
